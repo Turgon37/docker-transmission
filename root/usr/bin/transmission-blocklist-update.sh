@@ -13,7 +13,7 @@ if [ "${BLOCKLIST_ENABLED:-false}" == "true" -a -n "$BLOCKLIST_URL" ]; then
     if [ $? == 0 ]; then
       chmod go+r *
       rm -rf /config/blocklists/*
-      cp /tmp/blocklists/blocklist.gz /config/blocklists/
+      cp /tmp/blocklists/* /config/blocklists/
       s6-svc -h /var/run/s6/services/transmission
     fi
   fi
