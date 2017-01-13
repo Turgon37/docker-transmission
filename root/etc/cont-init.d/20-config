@@ -1,0 +1,21 @@
+#!/usr/bin/with-contenv sh
+
+# make folders
+mkdir -p \
+  /config \
+  /downloads/complete \
+  /downloads/incomplete \
+  /watch
+
+# copy config
+[[ ! -f "/config/settings.json" ]] && \
+  cp /defaults/settings.json /config/settings.json
+
+# permissions
+chown transmission:transmission \
+  /config \
+  /config/settings.json \
+  /downloads \
+  /downloads/complete \
+  /downloads/incomplete \
+  /watch
