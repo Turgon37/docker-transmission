@@ -1,5 +1,8 @@
 # Docker SMTP Relay
 
+[![](https://images.microbadger.com/badges/image/turgon37/transmission.svg)](https://microbadger.com/images/turgon37/transmission "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/turgon37/transmission.svg)](https://microbadger.com/images/turgon37/transmission "Get your own version badge on microbadger.com")
+
 This image contains an instance of [Transmission client](https://www.transmissionbt.com/).
 This project was inspired from [this project](https://github.com/linuxserver/docker-transmission) and rewrited to provide most of the configuration with ENV variables.
 
