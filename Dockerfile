@@ -27,7 +27,7 @@ RUN apk --no-cache add \
 COPY root/ /
 
 # ports and volumes
-EXPOSE 9091 51413
+EXPOSE 9091/tcp 51413
 VOLUME ["/config","/downloads","/watch"]
 WORKDIR /downloads
 
