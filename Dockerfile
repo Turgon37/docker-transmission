@@ -42,9 +42,9 @@ RUN mkdir -p \
       /downloads \
       /downloads/complete \
       /downloads/incomplete \
-      /watch && \
-    chgrp transmission /etc/ssmtp /etc/ssmtp/ssmtp.conf && \
-    chmod g+w /etc/ssmtp /etc/ssmtp/ssmtp.conf
+      /watch \
+    && chgrp transmission /etc/ssmtp /etc/ssmtp/ssmtp.conf \
+    && chmod g+w /etc/ssmtp /etc/ssmtp/ssmtp.conf
 
 # copy local files
 COPY root/ /
