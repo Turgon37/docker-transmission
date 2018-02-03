@@ -6,6 +6,7 @@ Items starting with `DEPRECATE` are important deprecation notices.
 
 ### Image
 
++ Upgrade to Alpine 3.7
 + Remove s6-overlay, run transmission-daemon directly
 + Remove the internal crond service, so you must setup a docker external cron to call /opt/transmission/blocklist-update.sh
 
