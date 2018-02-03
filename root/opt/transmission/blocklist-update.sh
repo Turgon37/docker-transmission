@@ -14,7 +14,7 @@ if [ "${BLOCKLIST_ENABLED:-false}" == "true" -a -n "$BLOCKLIST_URL" ]; then
       chmod go+r *
       rm -rf /config/blocklists/*
       cp /tmp/blocklists/* /config/blocklists/
-      s6-svc -h /var/run/s6/services/transmission
+      killall -SIGHUP transmission-daemon
     fi
   fi
 fi

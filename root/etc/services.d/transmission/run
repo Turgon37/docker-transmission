@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv sh
-
-exec \
-  s6-setuidgid transmission \
-    /usr/bin/transmission-daemon -g /config -c /watch -f
