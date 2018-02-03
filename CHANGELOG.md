@@ -11,7 +11,7 @@ Items starting with `DEPRECATE` are important deprecation notices.
 
 ### Transmission
 
-* Moved the default email notification script to /opt/transmission/mail-notification.sh !! so you will need to update your settings.json.
+* Moved the default email notification script to /opt/transmission/mail-notification.sh. This modification will be transparent if you had set the /config as a docker volume. Otherwise you will need to update your settings.json.
 
 ### Deprecation
 

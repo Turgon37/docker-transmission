@@ -1,4 +1,4 @@
-# Docker SMTP Relay
+# Docker Bittorent Transmission
 
 [![Build Status](https://travis-ci.org/Turgon37/docker-transmission.svg?branch=master)](https://travis-ci.org/Turgon37/docker-transmission)
 [![](https://images.microbadger.com/badges/image/turgon37/transmission.svg)](https://microbadger.com/images/turgon37/transmission "Get your own image badge on microbadger.com")
@@ -7,6 +7,7 @@
 This image contains an instance of [Transmission client](https://www.transmissionbt.com/).
 This project was inspired from [this project](https://github.com/linuxserver/docker-transmission) and rewrited to provide most of the configuration with ENV variables.
 
+:warning: Take care of the [changelogs](CHANGELOG.md) because some breaking changes may happend between versions.
 
 # Features
 
@@ -14,7 +15,7 @@ This project was inspired from [this project](https://github.com/linuxserver/doc
 
 this requires 3 settings to be changed in the settings.json file.
 
-`Make sure the container is stopped before editing these settings.`
+Make sure the container is stopped before editing these settings.
 
 `"rpc-authentication-required": true,` - check this, the default is false, change to true.
 
@@ -26,11 +27,15 @@ Transmission will convert it to a hash when you restart the container after maki
 
 ## Updating Blocklists Automatically
 
+You can configure an external cron job to update automatically the blocklists.
 This requires `"blocklist-enabled": true,` to be set. By setting this to true, it is assumed you have also populated `blocklist-url` with a valid block list.
 
 The automatic update is a shell script that downloads a blocklist from the url stored in the settings.json, gunzips it, and restarts the transmission daemon.
 
-The automatic update will run once a day at 3am local server time.
+```
+0 3 * * * root docker ps | grep --quiet 'transmission$' && docker exec --user transmission transmission /opt/transmission/blocklist-update.sh
+```
+
 
 ## Notification by mail for done torrents
 
@@ -76,13 +81,6 @@ You can include any other environment variable that will be available in the mai
 | /watch     | Watch folder to allow automatic .torrent loading |
 
 
-  * This image takes theses environnements variables as parameters
-
-
-| Environment                  | Usage        |
-| ---------------------------- | -----------  |
-
-
 ## Installation
 
 * Manual
@@ -102,4 +100,33 @@ docker pull turgon37/transmission
 
 ```
 docker run -p 80:9091 turgon37/transmission
+```
+
+
+### Docker-compose Specific configuration examples
+
+* Simple docker-compose setting with smtp configuration
+
+```
+services:
+  transmission:
+    image: turgon37/transmission
+    environment:
+      - SMTP_SERVER=10.0.0.1
+      - MAIL_FROM=noreply@domain.net
+      - MAIL_TO=torrent@domain.net
+    ports:
+      - "127.0.0.1:8001:51413:51413/tcp"
+      - "127.0.0.1:8001:51413:51413/udp"
+      - "127.0.0.1:8001:9091/tcp"
+    volumes:
+      - data-transmission:/config
+      - data-transmission-download:/downloads/complete"
+      - data-transmission-incomplete:/downloads/incomplete"
+      - data-transmission-watch:/watch"
+volumes:
+  data-transmission:
+  data-transmission-download:
+  data-transmission-incomplete:
+  data-transmission-watch:
 ```
