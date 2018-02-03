@@ -1,0 +1,37 @@
+---
+language: bash
+
+# Tell Travis to start Docker when it brings up an environment.
+services:
+  - docker
+
+env:
+  global:
+  matrix:
+    # Provide a list of GLPI version to build
+    - TRANSMISSION_VERSION=""
+
+script:
+  - export VCS_REF=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_COMMIT; else echo $TRAVIS_PULL_REQUEST_SHA; fi)
+  - export VCS_BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+
+  # Download tools shim.
+  - wget -O ${PWD}/_tools.sh https://gist.github.com/Turgon37/2ba8685893807e3637ea3879ef9d2062/raw
+  - source ${PWD}/_tools.sh
+
+  # 
+  # Build docker image
+  #
+  - ${PWD}/build.sh
+
+  #
+  ## Run tests
+  #
+  - ${PWD}/tests.sh
+
+  #
+  # Deploy
+  #
+  - '[ "$TRAVIS_PULL_REQUEST" == "false" ] || exit 0'
+  - '[ "$TRAVIS_SECURE_ENV_VARS" == "true" -a  -n "$DOCKERHUB_REGISTRY_USERNAME" -a -n "$DOCKERHUB_REGISTRY_PASSWORD" ]'
+  - ${PWD}/deploy.sh
