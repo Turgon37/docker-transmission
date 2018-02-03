@@ -13,10 +13,6 @@ Items starting with `DEPRECATE` are important deprecation notices.
 
 * Moved the default email notification script to /opt/transmission/mail-notification.sh. This modification will be transparent if you had set the /config as a docker volume. Otherwise you will need to update your settings.json.
 
-### Deprecation
-
-- Deprecate `GLPI_PLUGINS` environment variable in favor of GLPI_INSTALL_PLUGINS. GLPI_INSTALL_PLUGINS is comma separated and follow the same pattern as GLPI_PLUGINS.
-
 ## 1.0.0 (2017-08-07)
 
 First release
