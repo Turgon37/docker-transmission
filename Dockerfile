@@ -39,7 +39,6 @@ RUN mkdir -p \
       /watch && \
     chown transmission:transmission \
       /config \
-      /config/settings.json \
       /downloads \
       /downloads/complete \
       /downloads/incomplete \

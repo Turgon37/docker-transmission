@@ -4,8 +4,10 @@ set -e
 
 # copy config
 echo "Copying default config..."
-[[ ! -f "/config/settings.json" ]] && cp /defaults/settings.json /config/settings.json
-
+if [ ! -f "/config/settings.json" ]; then
+  cp /defaults/settings.json /config/settings.json
+  chown transmission:transmission /config/settings.json
+fi
 
 echo "Configure ssmtp for email notification..."
 ssmtp_conf=/etc/ssmtp/ssmtp.conf
