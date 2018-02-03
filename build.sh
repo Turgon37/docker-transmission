@@ -20,7 +20,7 @@ set -x
 
 # If empty version, fetch the latest from repository
 if [ -z "$TRANSMISSION_VERSION" ]; then
-  TRANSMISSION_VERSION=`curl -s "https://pkgs.alpinelinux.org/packages?name=transmission&branch=v${alpine_version}&repo=main&${arch}=" | grep --perl-regexp --only-matching '(?<=<td class="version">)[a-z0-9.-]+'`
+  TRANSMISSION_VERSION=`curl -s "https://pkgs.alpinelinux.org/packages?name=transmission&branch=v${alpine_version}&repo=main&arch=${arch}" | grep --perl-regexp --only-matching '(?<=<td class="version">)[a-z0-9.-]+' | uniq`
   if [ -z "$DOCKER_IMAGE_TAGS" ]; then
     DOCKER_IMAGE_TAGS="${DOCKER_IMAGE_TAGS} latest"
   fi
