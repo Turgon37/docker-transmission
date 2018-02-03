@@ -8,6 +8,8 @@ docker_run_options='--detach'
 set -e
 set -x
 
+source ${PWD}/_tools.sh
+
 ## Tests
 
 #1 Test build successful
@@ -27,11 +29,11 @@ docker run --rm $docker_run_options --name "${image_name}" "${image}" transmissi
 #3 Test web access
 echo '-> 3 Test web access'
 image_name=transmission_3
-docker run $docker_run_options --name "${image_name}" --publish 8000:80 "${image}"
-wait_for_string_in_container_logs "${image_name}" 'nginx entered RUNNING state'
+docker run $docker_run_options --name "${image_name}" --publish 8000:9091 "${image}"
+wait_for_string_in_container_logs "${image_name}" 'Watching'
 sleep 4
 #test
-if ! curl -v http://localhost:8000 2>&1 | grep --quiet 'install/install.php'; then
+if ! curl -v http://localhost:8000 2>&1 | grep --quiet 'transmission/web/'; then
   docker logs "${image_name}"
   false
 fi

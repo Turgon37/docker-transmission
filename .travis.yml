@@ -19,7 +19,6 @@ script:
 
   # Download tools shim.
   - wget -O ${PWD}/_tools.sh https://gist.github.com/Turgon37/2ba8685893807e3637ea3879ef9d2062/raw
-  - source ${PWD}/_tools.sh
 
   # 
   # Build docker image
@@ -27,13 +26,9 @@ script:
   - ${PWD}/build.sh
 
   #
-  ## Run tests
+  ## Run tests and deploy
   #
-  - ${PWD}/tests.sh
-
-  #
-  # Deploy
-  #
-  - '[ "$TRAVIS_PULL_REQUEST" == "false" ] || exit 0'
-  - '[ "$TRAVIS_SECURE_ENV_VARS" == "true" -a  -n "$DOCKERHUB_REGISTRY_USERNAME" -a -n "$DOCKERHUB_REGISTRY_PASSWORD" ]'
-  - ${PWD}/deploy.sh
+  - ${PWD}/tests.sh && \
+  ([ "$TRAVIS_PULL_REQUEST" == "false" ] || exit 0) && \
+  ([ "$TRAVIS_SECURE_ENV_VARS" == "true" -a  -n "$DOCKERHUB_REGISTRY_USERNAME" -a -n "$DOCKERHUB_REGISTRY_PASSWORD" ]) && \
+  ${PWD}/deploy.sh
