@@ -1,5 +1,6 @@
 # Docker SMTP Relay
 
+[![Build Status](https://travis-ci.org/Turgon37/docker-transmission.svg?branch=master)](https://travis-ci.org/Turgon37/docker-transmission)
 [![](https://images.microbadger.com/badges/image/turgon37/transmission.svg)](https://microbadger.com/images/turgon37/transmission "Get your own image badge on microbadger.com")
 [![](https://images.microbadger.com/badges/version/turgon37/transmission.svg)](https://microbadger.com/images/turgon37/transmission "Get your own version badge on microbadger.com")
 
