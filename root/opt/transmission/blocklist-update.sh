@@ -1,13 +1,15 @@
-#!/usr/bin/with-contenv sh
+#!/usr/bin/env sh
 
-BLOCKLIST_ENABLED=$(jq -r '.["blocklist-enabled"]' /config/settings.json)
-BLOCKLIST_URL=$(jq -r '.["blocklist-url"]' /config/settings.json | sed 's/\&amp;/\&/g')
+JQ_PATH=$(which jq)
 
-if [ "${BLOCKLIST_ENABLED:-false}" == "true" -a -n "$BLOCKLIST_URL" ]; then
+blocklist_enabled=$(${JQ_PATH} -r '.["blocklist-enabled"]' /config/settings.json)
+blocklist_url=$(${JQ_PATH} -r '.["blocklist-url"]' /config/settings.json | sed 's/\&amp;/\&/g')
+
+if [ "${blocklist_enabled:-false}" == "true" -a -n "$blocklist_url" ]; then
   mkdir -p /tmp/blocklists
   rm -rf /tmp/blocklists/*
   cd /tmp/blocklists
-  wget -q -O blocklist.gz "$BLOCKLIST_URL"
+  wget -q -O blocklist.gz "$blocklist_url"
   if [ $? == 0 ]; then
     gunzip *.gz
     if [ $? == 0 ]; then
