@@ -3,13 +3,13 @@
 set -e
 
 # copy config
-echo "Copying default config..."
+echo 'Copying default config...'
 if [ ! -f "/config/settings.json" ]; then
   cp /defaults/settings.json /config/settings.json
   chown transmission:transmission /config/settings.json
 fi
 
-echo "Configure ssmtp for email notification..."
+echo 'Configure ssmtp for email notification...'
 ssmtp_conf=/etc/ssmtp/ssmtp.conf
 
 # configure ssmtp
@@ -38,5 +38,5 @@ if [ -n "${SMTP_SSL}" -a "${SMTP_SSL}" = "yes" ] && ! grep 'UseTLS=Yes' "${ssmtp
 fi
 
 ## Start
-echo "Starting up..."
-/usr/bin/transmission-daemon --config-dir /config --watch-dir /watch --foreground
+echo 'Starting up...'
+exec /usr/bin/transmission-daemon --config-dir /config --watch-dir /watch --foreground
