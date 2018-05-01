@@ -43,9 +43,9 @@ RUN mkdir -p \
       /downloads \
       /downloads/complete \
       /downloads/incomplete \
-      /watch \
-    && chgrp transmission /etc/ssmtp /etc/ssmtp/ssmtp.conf \
-    && chmod g+w /etc/ssmtp /etc/ssmtp/ssmtp.conf
+      /watch && \
+    chgrp transmission /etc/ssmtp /etc/ssmtp/ssmtp.conf && \
+    chmod g+w /etc/ssmtp /etc/ssmtp/ssmtp.conf
 
 # copy local files
 COPY root/ /
@@ -53,11 +53,11 @@ COPY root/ /
 # ports and volumes
 EXPOSE 9091/tcp 51413
 VOLUME ["/config", "/downloads", "/watch"]
-WORKDIR /downloads
 
+WORKDIR /downloads
 USER transmission:transmission
 
 HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
-    CMD curl --silent --fail http://localhost:9091 || exit 1
+    CMD curl --connect-timeout 2 --silent --fail http://localhost:9091 || exit 1
 
 CMD ["/start.sh"]
