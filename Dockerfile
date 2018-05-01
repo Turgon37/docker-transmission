@@ -58,6 +58,6 @@ WORKDIR /downloads
 USER transmission:transmission
 
 HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
-    CMD curl --connect-timeout 2 --silent --fail http://localhost:9091 || exit 1
+    CMD curl --connect-timeout 1 --max-time 2 --silent --fail http://localhost:9091 || exit 1
 
 CMD ["/start.sh"]
