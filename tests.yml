@@ -1,7 +1,7 @@
 schemaVersion: 2.0.0
 
 metadataTest:
-  exposedPorts: ["9091/tcp", "51413/tcp", "51413/udp"]
+  exposedPorts: ["9091", "51413"]
   volumes: ["/config", "/downloads", "/watch"]
 
 commandTests:
