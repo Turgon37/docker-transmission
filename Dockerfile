@@ -46,4 +46,7 @@ USER transmission:transmission
 HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
     CMD curl --connect-timeout 1 --max-time 2 --silent --fail http://localhost:9091 || exit 1
 
-CMD ["/start.sh"]
+COPY /entrypoint.sh /
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/transmission-daemon", "--config-dir", "/config", "--watch-dir", "/watch", "--foreground"]
