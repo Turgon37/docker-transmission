@@ -1,0 +1,13 @@
+schemaVersion: 2.0.0
+
+metadataTest:
+  exposedPorts: ["9091", "51413"]
+  volumes: ["/config", "/downloads", "/watch"]
+
+commandTests:
+  - name: GLPI successfully installed
+    command: test
+    args:
+      - '-f'
+      - /usr/bin/transmission-daemon
+    exitCode: 0

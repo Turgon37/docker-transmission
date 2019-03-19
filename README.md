@@ -9,9 +9,38 @@ This project was inspired from [this project](https://github.com/linuxserver/doc
 
 :warning: Take care of the [changelogs](CHANGELOG.md) because some breaking changes may happend between versions.
 
-# Features
+## Supported tags and respective Dockerfile links
 
-## Securing the webui with a username/password.
+* [`latest`](https://github.com/Turgon37/docker-transmission/blob/master/Dockerfile)
+
+## Docker Informations
+
+* This image exposes the following ports
+
+| Port                | Usage        |
+| ------------------- | ------------ |
+| 9091                | HTTP Web UI  |
+| 51413/tcp  51413/udp| Peering port |
+
+ * This image takes theses environnements variables as parameters
+
+| Environment       | Type         | Usage             |
+| ------------------| ------------ | ------------------|
+| TZ                | String       | Set the timezone  |
+
+
+   * This volume is bind on this image
+
+| Volume     | Usage                                            |
+| ---------- | ------------------------------------------------ |
+| /config    | Store configuration and torrents stats files     |
+| /downloads | Path where the torrent's content will be put     |
+| /watch     | Watch folder to allow automatic .torrent loading |
+
+
+## Features
+
+### Securing the webui with a username/password.
 
 this requires 3 settings to be changed in the settings.json file.
 
@@ -25,7 +54,7 @@ Make sure the container is stopped before editing these settings.
 
 Transmission will convert it to a hash when you restart the container after making the above edits.
 
-## Updating Blocklists Automatically
+### Updating Blocklists Automatically
 
 You can configure an external cron job to update automatically the blocklists.
 This requires `"blocklist-enabled": true,` to be set. By setting this to true, it is assumed you have also populated `blocklist-url` with a valid block list.
@@ -36,8 +65,7 @@ The automatic update is a shell script that downloads a blocklist from the url s
 0 3 * * * root docker ps | grep --quiet 'transmission$' && docker exec --user transmission transmission /opt/transmission/blocklist-update.sh
 ```
 
-
-## Notification by mail for done torrents
+### Notification by mails for done torrents
 
 A notification script is included into this container. This script is run each times a Torrent has finished to be downloaded. By default it is able to send a mail but you can edit it to make something else.
 You can activate in by simply configure at least the following environment variables into your container
@@ -62,35 +90,7 @@ The following parameters are optionnal, they depends of your configuration needs
 You can include any other environment variable that will be available in the mail body of the notification script (localised into /config/mail-notification.py)
 
 
-
-## Docker Informations
-
-   * This port is available on this image
-
-| Port                 | Usage        |
-| -------------------- | ------------ |
-| 9091                 | HTTP Web UI  |
-| 51413/tcp  51413/udp | Peering port |
-
-   * This volume is bind on this image
-
-| Volume     | Usage                                            |
-| ---------- | ------------------------------------------------ |
-| /config    | Store configuration and torrents stats files     |
-| /downloads | Path where the torrent's content will be put     |
-| /watch     | Watch folder to allow automatic .torrent loading |
-
-
 ## Installation
-
-* Manual
-
-```
-git clone
-docker build -t turgon37/transmission .
-```
-
-* or Automatic
 
 ```
 docker pull turgon37/transmission
@@ -116,8 +116,8 @@ services:
       - MAIL_FROM=noreply@domain.net
       - MAIL_TO=torrent@domain.net
     ports:
-      - "127.0.0.1:8001:51413:51413/tcp"
-      - "127.0.0.1:8001:51413:51413/udp"
+      - "127.0.0.1:8002:51413:51413/tcp"
+      - "127.0.0.1:8002:51413:51413/udp"
       - "127.0.0.1:8001:9091/tcp"
     volumes:
       - data-transmission:/config

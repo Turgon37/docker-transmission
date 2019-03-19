@@ -2,6 +2,12 @@
 
 Items starting with `DEPRECATE` are important deprecation notices.
 
+## 3.0.0 (2019-03-19)
+
+### Image
+
+- Replace start.sh by entrypoint
+
 ## 2.1.0 (2018-02-04)
 
 ### Image
