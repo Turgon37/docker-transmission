@@ -16,7 +16,8 @@ RUN apk --no-cache add \
       curl \
       jq \
       ssmtp \
-      transmission-daemon=$TRANSMISSION_VERSION
+      transmission-daemon=$TRANSMISSION_VERSION \
+      tzdata
 
 # Create the working filetree
 RUN mkdir -p \

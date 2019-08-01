@@ -2,6 +2,12 @@
 
 Items starting with `DEPRECATE` are important deprecation notices.
 
+## 3.0.1 (2019-08-02)
+
+### Image
+
+- Add missing tzdata package
+
 ## 3.0.0 (2019-03-19)
 
 ### Image
