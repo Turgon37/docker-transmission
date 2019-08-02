@@ -16,7 +16,8 @@ RUN apk --no-cache add \
       curl \
       jq \
       ssmtp \
-      transmission-daemon=$TRANSMISSION_VERSION
+      transmission-daemon=$TRANSMISSION_VERSION \
+      tzdata
 
 # Create the working filetree
 RUN mkdir -p \
@@ -31,7 +32,9 @@ RUN mkdir -p \
       /downloads/incomplete \
       /watch \
     && chgrp transmission /etc/ssmtp /etc/ssmtp/ssmtp.conf \
-    && chmod g+w /etc/ssmtp /etc/ssmtp/ssmtp.conf
+    && chmod g+w /etc/ssmtp /etc/ssmtp/ssmtp.conf \
+    && ln -s /config/timezone /etc/timezone \
+    && ln -s /config/localtime /etc/localtime
 
 # copy local files
 COPY root/ /
