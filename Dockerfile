@@ -32,7 +32,9 @@ RUN mkdir -p \
       /downloads/incomplete \
       /watch \
     && chgrp transmission /etc/ssmtp /etc/ssmtp/ssmtp.conf \
-    && chmod g+w /etc/ssmtp /etc/ssmtp/ssmtp.conf
+    && chmod g+w /etc/ssmtp /etc/ssmtp/ssmtp.conf \
+    && ln -s /config/timezone /etc/timezone \
+    && ln -s /config/localtime /etc/localtime
 
 # copy local files
 COPY root/ /
